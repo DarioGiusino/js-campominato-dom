@@ -37,7 +37,7 @@ function createCell(content) {
 }
 
 // creare numero random unico per le bombe
-function getUniqueRandomNumber (min = 1, max = 16, blackList){
+function getUniqueRandomNumber (min = 1, max = 100, blackList){
     let randomNumber;
     
     do { 
@@ -52,14 +52,11 @@ function createBombs() {
     let bombs = [];
 
     for (let i = 1; i <= 16; i++){
-        bombs.push(getUniqueRandomNumber(1, 16, bombs))
+        bombs.push(getUniqueRandomNumber(1, 100, bombs))
     }
 
     return bombs;
 }
-
-const pippo = createBombs()
-console.log(pippo);
 
 // # FASE PRELIMINARE ------------------------
 // recupero elementi dal DOM
@@ -72,9 +69,6 @@ const rows = 10;
 const cols = 10;
 const totalCells = rows * cols;
 
-// contatore punteggio
-const score = [];
-
 // # AVVIO LOGICA
 // al click del bottone play
 button.addEventListener('click', function(event){
@@ -83,20 +77,38 @@ button.addEventListener('click', function(event){
 
     // cambio testo al button
     event.target.innerText = 'Restart';
+
+    // preparo contatore punteggio
+    const score = [];
+
+    // creo array di bombe
+    const bombs = createBombs()
+    console.log(bombs);
     
     // per il totale delle celle...
     for (let i = 1; i <= totalCells; i++){
         // creo tot celle
         const cell = createCell(i);
-        // aggiungo classe al click e stampo in console numero relativo
+
+        // al click della cella...
         cell.addEventListener('click', function(){
-            cell.classList.add('clicked');
-            // // console.log(i);
             // aggiungo numero cliccato allo score (solo una volta)
             if (!score.includes(i)){
                 score.push(i);
                 console.log(score);
             }
+            
+            // se la cella è contenuta nell'array delle bombe...
+            if (bombs.includes(i)){
+                cell.classList.add('bomb')
+                console.log('Hai perso! Il punteggio è ' + score.length);
+            } else {
+                cell.classList.add('clicked');
+            }
+            
+            
+
+            
         });
         // inserisco in griglia
         grid.appendChild(cell);

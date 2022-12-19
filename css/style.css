@@ -63,3 +63,7 @@ footer p{
     color: #000;
     cursor: not-allowed;
 }
+
+#grid .cell.bomb{
+    background-color: #e43f41;
+}
