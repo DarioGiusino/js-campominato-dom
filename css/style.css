@@ -6,11 +6,13 @@ header{
 main{
     height: calc(100vh - 160px);
     overflow-y: auto;
-    background-color: #7fffd4;
+    background-color: #0d1117;
 }
 
 footer{
     height: 60px;
+    background-color: #c2eddc;
+
 }
 
 footer p{
@@ -42,12 +44,13 @@ footer p{
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    color: #a7a7a7;
 }
 
 #grid .cell{
     width: calc(100% / 10);
     height: calc(100% / 10);
-    border: 1px solid #000;
+    border: 1px solid #a7a7a7;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -56,5 +59,6 @@ footer p{
 }
 
 #grid .cell.clicked{
-    background-color: #06f5f5;
+    background-color: #cdd4ed;
+    color: #000;
 }
