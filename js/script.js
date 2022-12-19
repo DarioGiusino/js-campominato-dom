@@ -36,6 +36,31 @@ function createCell(content) {
     return cell;
 }
 
+// creare numero random unico per le bombe
+function getUniqueRandomNumber (min = 1, max = 16, blackList){
+    let randomNumber;
+    
+    do { 
+        randomNumber = Math.floor(Math.random() * (max + 1 - min)) + min;
+    } while (blackList.includes(randomNumber));
+
+    return randomNumber;
+}
+
+// creare 16 bombe univoche
+function createBombs() {
+    let bombs = [];
+
+    for (let i = 1; i <= 16; i++){
+        bombs.push(getUniqueRandomNumber(1, 16, bombs))
+    }
+
+    return bombs;
+}
+
+const pippo = createBombs()
+console.log(pippo);
+
 // # FASE PRELIMINARE ------------------------
 // recupero elementi dal DOM
 const button = document.getElementById('play');
@@ -67,10 +92,11 @@ button.addEventListener('click', function(event){
         cell.addEventListener('click', function(){
             cell.classList.add('clicked');
             // // console.log(i);
+            // aggiungo numero cliccato allo score (solo una volta)
             if (!score.includes(i)){
                 score.push(i);
+                console.log(score);
             }
-            console.log(score);
         });
         // inserisco in griglia
         grid.appendChild(cell);
