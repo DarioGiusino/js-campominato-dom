@@ -47,6 +47,9 @@ const rows = 10;
 const cols = 10;
 const totalCells = rows * cols;
 
+// contatore punteggio
+const score = [];
+
 // # AVVIO LOGICA
 // al click del bottone play
 button.addEventListener('click', function(event){
@@ -62,8 +65,12 @@ button.addEventListener('click', function(event){
         const cell = createCell(i);
         // aggiungo classe al click e stampo in console numero relativo
         cell.addEventListener('click', function(){
-            cell.classList.toggle('clicked');
-            console.log(i);
+            cell.classList.add('clicked');
+            // // console.log(i);
+            if (!score.includes(i)){
+                score.push(i);
+            }
+            console.log(score);
         });
         // inserisco in griglia
         grid.appendChild(cell);

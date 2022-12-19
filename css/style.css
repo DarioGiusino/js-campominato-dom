@@ -61,4 +61,5 @@ footer p{
 #grid .cell.clicked{
     background-color: #cdd4ed;
     color: #000;
+    cursor: not-allowed;
 }
