@@ -69,6 +69,8 @@ const rows = 10;
 const cols = 10;
 const totalCells = rows * cols;
 
+let isGameOver = false;
+
 // # AVVIO LOGICA
 // al click del bottone play
 button.addEventListener('click', function(event){
@@ -77,6 +79,8 @@ button.addEventListener('click', function(event){
 
     // cambio testo al button
     event.target.innerText = 'Restart';
+
+    isGameOver = false;
 
     // preparo contatore punteggio
     let score = 0;
@@ -93,7 +97,7 @@ button.addEventListener('click', function(event){
         // al click della cella...
         cell.addEventListener('click', function(){
             // controllo se la cella contiene la classe clicked
-            if (cell.classList.contains('clicked')){
+            if (cell.classList.contains('clicked') || isGameOver){
                 return;
             }
             
@@ -104,6 +108,7 @@ button.addEventListener('click', function(event){
             if (bombs.includes(parseInt(cell.innerText))){
                 cell.classList.add('bomb');
                 console.log(`Hai perso, il tuo punteggio è ${score}`);
+                isGameOver = true;
             } else {
                 // altrimenti il punteggio viene incrementato
                 score++;
