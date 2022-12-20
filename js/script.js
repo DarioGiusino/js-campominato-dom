@@ -69,6 +69,7 @@ const rows = 10;
 const cols = 10;
 const totalCells = rows * cols;
 
+// flag di avvio/termine gioco
 let isGameOver = false;
 
 // # AVVIO LOGICA
@@ -80,6 +81,7 @@ button.addEventListener('click', function(event){
     // cambio testo al button
     event.target.innerText = 'Restart';
 
+    // riporto il flag a false per iniziare a giocare
     isGameOver = false;
 
     // preparo contatore punteggio
@@ -96,7 +98,7 @@ button.addEventListener('click', function(event){
 
         // al click della cella...
         cell.addEventListener('click', function(){
-            // controllo se la cella contiene la classe clicked
+            // controllo se la cella contiene la classe clicked o è gameover
             if (cell.classList.contains('clicked') || isGameOver){
                 return;
             }
@@ -122,8 +124,5 @@ button.addEventListener('click', function(event){
         });
         // inserisco in griglia
         grid.appendChild(cell);
-
-        
     }
-
 });
