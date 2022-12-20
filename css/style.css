@@ -64,6 +64,6 @@ footer p{
     cursor: not-allowed;
 }
 
-#grid .cell.bomb{
+#grid .cell.clicked.bomb{
     background-color: #e43f41;
 }

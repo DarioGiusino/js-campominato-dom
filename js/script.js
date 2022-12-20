@@ -49,7 +49,7 @@ function getUniqueRandomNumber (min = 1, max = 100, blackList){
 
 // creare 16 bombe univoche
 function createBombs() {
-    let bombs = [];
+    const bombs = [];
 
     for (let i = 1; i <= 16; i++){
         bombs.push(getUniqueRandomNumber(1, 100, bombs))
@@ -79,7 +79,7 @@ button.addEventListener('click', function(event){
     event.target.innerText = 'Restart';
 
     // preparo contatore punteggio
-    const score = [];
+    let score = 0;
 
     // creo array di bombe
     const bombs = createBombs()
@@ -92,26 +92,33 @@ button.addEventListener('click', function(event){
 
         // al click della cella...
         cell.addEventListener('click', function(){
-            // aggiungo numero cliccato allo score (solo una volta)
-            if (!score.includes(i)){
-                score.push(i);
-                console.log(score);
+            // controllo se la cella contiene la classe clicked
+            if (cell.classList.contains('clicked')){
+                return;
             }
             
-            // se la cella è contenuta nell'array delle bombe...
-            if (bombs.includes(i)){
-                cell.classList.add('bomb')
-                console.log('Hai perso! Il punteggio è ' + score.length);
-            } else {
-                cell.classList.add('clicked');
-            }
-            
-            
+            // aggiungo la classe clicked
+            cell.classList.add('clicked');
 
-            
+            // se il numero è contenuto nell'array bombe viene colorato di rosso e la partita termina
+            if (bombs.includes(parseInt(cell.innerText))){
+                cell.classList.add('bomb');
+                console.log(`Hai perso, il tuo punteggio è ${score}`);
+            } else {
+                // altrimenti il punteggio viene incrementato
+                score++;
+                console.log(score);
+
+                // se raggiunto il massimo, la partita termina
+                if (score === totalCells - bombs.length){
+                    console.log(`Congratulazioni, hai totalizzato il massimo`);
+                }   
+            }
         });
         // inserisco in griglia
         grid.appendChild(cell);
+
+        
     }
 
 });
