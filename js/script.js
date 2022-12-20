@@ -62,7 +62,7 @@ function createBombs() {
 // recupero elementi dal DOM
 const button = document.getElementById('play');
 const grid = document.getElementById('grid');
-const titleElement = document.getElementById('starting-title');
+const scoreElement = document.getElementById('score');
 
 // valori iniziali
 const rows = 10;
@@ -80,6 +80,9 @@ button.addEventListener('click', function(event){
 
     // cambio testo al button
     event.target.innerText = 'Restart';
+
+    // aggiungo classe d-none alla scritta punteggio
+    scoreElement.classList.add('d-none');
 
     // riporto il flag a false per iniziare a giocare
     isGameOver = false;
@@ -106,19 +109,25 @@ button.addEventListener('click', function(event){
             // aggiungo la classe clicked
             cell.classList.add('clicked');
 
+            // rimuovo classe d-none alla scritta del punteggio
+            scoreElement.classList.remove('d-none');
+
             // se il numero è contenuto nell'array bombe viene colorato di rosso e la partita termina
             if (bombs.includes(parseInt(cell.innerText))){
                 cell.classList.add('bomb');
                 console.log(`Hai perso, il tuo punteggio è ${score}`);
+                scoreElement.innerText = `Hai perso, il tuo punteggio è ${score}`;
                 isGameOver = true;
             } else {
                 // altrimenti il punteggio viene incrementato
                 score++;
                 console.log(score);
+                scoreElement.innerText = `Il tuo punteggio attuale è: ${score}`;
 
                 // se raggiunto il massimo, la partita termina
                 if (score === totalCells - bombs.length){
-                    console.log(`Congratulazioni, hai totalizzato il massimo`);
+                    console.log('Congratulazioni, hai totalizzato il massimo');
+                    scoreElement.innerText = 'Congratulazioni, hai totalizzato il massimo';
                 }   
             }
         });
